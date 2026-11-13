@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ClaimFreshness — is this evidence still current?</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="dot"></span>
+    <strong>ClaimFreshness</strong>
+    <span class="tag">GenLayer Studio · chain 61999</span>
+  </div>
+  <div class="wallet">
+    <button id="addNetBtn" class="btn ghost">Add network</button>
+    <button id="connectBtn" class="btn primary">Connect wallet</button>
+    <div id="accountMenu" class="menu hidden">
+      <div class="menu-addr" id="menuAddr"></div>
+      <button id="disconnectBtn" class="menu-item">Disconnect</button>
+    </div>
+  </div>
+</header>
+
+<div id="installHint" class="install hidden">
+  This page works with MetaMask. <a href="https://metamask.io/download/" target="_blank" rel="noreferrer">Install the MetaMask extension ↗</a>, then reload this page.
+</div>
+
+<main>
+
+  <section class="intro">
+    <h1>Is this evidence still current?</h1>
+    <p>
+      A claim carries the date its evidence was published and the window its publisher
+      says that evidence stays valid for. The contract turns that into a graded state at
+      the moment you ask — not a yes or no.
+    </p>
+    <p class="hint">
+      This network is <strong>gasless</strong>. A zero balance is expected and does not block
+      transactions. Two transactions per run: register the claim, then check it.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>1 · Claim</h2>
+    <div class="grid">
+      <label class="wide">
+        <span>Statement under test</span>
+        <textarea id="statement" rows="2"></textarea>
+      </label>
+      <label class="wide">
+        <span>Source URL (the evidence)</span>
+        <input id="sourceUrl" type="url" spellcheck="false" />
+      </label>
+      <label>
+        <span>Published on</span>
+        <input id="publishedOn" type="date" />
+      </label>
+      <label>
+        <span>Valid for (days)</span>
+        <input id="windowDays" type="number" min="1" value="90" />
+      </label>
+    </div>
+    <div class="actions">
+      <button id="runBtn" class="btn primary" disabled>Register and check</button>
+      <button id="resetBtn" class="btn ghost">Reset example</button>
+      <span class="contract">contract <code id="contractAddr"></code></span>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>2 · Execution</h2>
+    <ol id="steps" class="steps"></ol>
+  </section>
+
+  <section class="panel result hidden" id="resultPanel">
+    <h2>3 · Verdict</h2>
+    <div class="verdictRow">
+      <div id="verdict" class="verdict">—</div>
+      <div id="verdictNote" class="verdictNote"></div>
+    </div>
+    <div class="stats" id="stats"></div>
+    <details class="raw">
+      <summary>Raw contract record</summary>
+      <pre id="rawJson"></pre>
+    </details>
+  </section>
+</main>
+
+<div id="walletChooser" class="chooser hidden">
+  <div class="chooserCard">
+    <div class="chooserHead">Choose a wallet</div>
+    <div id="chooserList" class="chooserList"></div>
+    <button id="chooserCancel" class="btn ghost chooserCancel">Cancel</button>
+  </div>
+</div>
+
+<footer>
+  <span>Intelligent Contract on GenLayer Studionet</span>
+  <a id="explorerLink" href="#" target="_blank" rel="noreferrer">Open in Explorer</a>
+</footer>
+
+<script>
+  window.__errs = [];
+  window.addEventListener("error", (e) => {
+    window.__errs.push(`${e.message} @ ${e.filename}:${e.lineno}:${e.colno}`);
+  });
+  window.addEventListener("unhandledrejection", (e) => {
+    window.__errs.push(`rejection: ${(e.reason && (e.reason.message || e.reason)) || "unknown"}`);
+  });
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
