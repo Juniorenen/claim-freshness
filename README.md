@@ -99,6 +99,10 @@ Live page: **https://juniorenen.github.io/claim-freshness/**
 Two transactions: `register` writes the claim, then `check` grades it. The page
 is static — `genlayer-js` comes from a CDN and talks to Studionet directly.
 
+MetaMask may warn that the contract is unverified before the first signature.
+That is its automatic check on a newly deployed address, not a finding about the
+code; Studionet is gasless, so nothing is at stake.
+
 ## Deployment
 
 Reference instance on Studionet:
